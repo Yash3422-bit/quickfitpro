@@ -1,0 +1,19 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; line-height: 1.6; background-color: #f9f9f9; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+.hero { background: linear-gradient(135deg, #03A9F4 0%, #0288D1 100%); color: #fff; padding: 100px 0; text-align: center; }
+.badge { background-color: #FFC107; color: #333; padding: 6px 14px; font-size: 0.85rem; font-weight: bold; border-radius: 20px; text-transform: uppercase; display: inline-block; margin-bottom: 20px; }
+.hero h1 { font-size: 3.5rem; margin-bottom: 15px; font-weight: 800; }
+.tagline { font-size: 1.4rem; margin-bottom: 15px; font-style: italic; opacity: 0.95; }
+.subtext { font-size: 1.1rem; max-width: 600px; margin: 0 auto 30px auto; opacity: 0.9; }
+.btn-primary { background-color: #FFC107; color: #333; padding: 14px 30px; font-size: 1.1rem; font-weight: bold; border-radius: 5px; text-decoration: none; display: inline-block; }
+.btn-secondary { background-color: #03A9F4; color: #fff; padding: 14px 30px; font-size: 1.1rem; font-weight: bold; text-decoration: none; border-radius: 5px; display: inline-block; }
+.features { padding: 80px 0; background-color: #fff; text-align: center; }
+.features h2 { font-size: 2.2rem; margin-bottom: 50px; color: #222; }
+.feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+.card { background: #fdfdfd; border: 1px solid #eaeaea; padding: 40px 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+.card h3 { color: #03A9F4; margin-bottom: 15px; font-size: 1.3rem; }
+.cta-section { background-color: #f1f5f9; padding: 70px 0; text-align: center; }
+.cta-section h2 { font-size: 2rem; margin-bottom: 10px; }
+.cta-section p { margin-bottom: 25px; color: #666; }
+footer { background-color: #222; color: #aaa; text-align: center; padding: 25px 0; font-size: 0.9rem; }
