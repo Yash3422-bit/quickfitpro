@@ -57,7 +57,7 @@ def run_pipeline():
         f.write("# QuickFitPro Launch Marketing Copy\n\n" + mkt_output)
     print(" -> Saved 'marketing_copy.md'")
 
-    # 3. Expanded Local Workout Library JSON (AI-augmented structure)
+    # 3. Expanded Local Workout Library JSON with Fixed Image URL for Card 4
     print("\n[3/5] Generating Expanded Workout Library JSON...")
     workout_data = {
         "app_name": "QuickFitPro",
@@ -97,7 +97,7 @@ def run_pipeline():
                 "focus": "Cardio",
                 "difficulty": "Advanced",
                 "exercises": ["Jumping Jacks", "Burpees", "High Knees", "Speed Skaters"],
-                "visual_guide": "https://images.unsplash.com/photo-1434682881907-b43d60172b26?auto=format&fit=crop&w=600&q=80"
+                "visual_guide": "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=600&q=80"
             }
         ]
     }
@@ -268,7 +268,7 @@ footer { background-color: #222; color: #aaa; text-align: center; padding: 25px 
     # 5. Automated Git Commit for Deployment Preparation
     print("\n[5/5] Committing Updates to Local Git Repository...")
     os.system("git add .")
-    os.system('git commit -m "Feature update: Expanded workouts, live timers, and localStorage persistence"')
+    os.system('git commit -m "Feature update: Expanded workouts, fixed image URLs, live timers, and localStorage persistence"')
     print(" -> Changes committed locally and fully prepared for Vercel deployment!")
 
     print("=" * 60)
