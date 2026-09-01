@@ -12,7 +12,8 @@
                 "Plank Holds",
                 "Seated Russian Twists",
                 "Mountain Climbers"
-            ]
+            ],
+            "visual_guide": "https://images.unsplash.com/photo-1566241142559-40e1dab266c6?auto=format&fit=crop&w=600&q=80"
         },
         {
             "id": 2,
@@ -24,7 +25,36 @@
                 "Bodyweight Squats",
                 "Arm Circles",
                 "High Knees"
-            ]
+            ],
+            "visual_guide": "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=600&q=80"
+        },
+        {
+            "id": 3,
+            "title": "15-Minute Post-Work Stress Relief",
+            "duration_minutes": 15,
+            "focus": "Mobility & Stretch",
+            "difficulty": "Beginner",
+            "exercises": [
+                "Cat-Cow Stretch",
+                "Child's Pose",
+                "Hip Flexor Lunges",
+                "Shoulder Rolls"
+            ],
+            "visual_guide": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=600&q=80"
+        },
+        {
+            "id": 4,
+            "title": "8-Minute Weekend Cardio Burner",
+            "duration_minutes": 8,
+            "focus": "Cardio",
+            "difficulty": "Advanced",
+            "exercises": [
+                "Jumping Jacks",
+                "Burpees",
+                "High Knees",
+                "Speed Skaters"
+            ],
+            "visual_guide": "https://images.unsplash.com/photo-1434682881907-b43d60172b26?auto=format&fit=crop&w=600&q=80"
         }
     ]
 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuickFitPro - Get Fit in Minutes</title>
+    <title>QuickFitPro - Interactive Home Workouts</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,38 +12,119 @@
             <span class="badge">100% Free & Private</span>
             <h1>QuickFitPro</h1>
             <p class="tagline">"Get fit in minutes, not hours. Your shortcut to a stronger, healthier you."</p>
-            <p class="subtext">Designed specifically for busy professionals who need quick home workouts without sacrificing their hectic schedules.</p>
-            <a href="#cta" class="btn-primary">Start Your Fitness Journey</a>
+            <div id="stats-banner" style="margin-top: 15px; font-weight: bold; background: rgba(255,255,255,0.2); padding: 8px 16px; display: inline-block; border-radius: 20px;">
+                🔥 Workouts Completed: <span id="streak-count">0</span>
+            </div>
+            <br>
+            <a href="#workouts-section" class="btn-primary" style="margin-top: 20px;">Explore Workout Dashboard</a>
         </div>
     </header>
-    <section class="features">
+
+    <!-- Workout Dashboard Section -->
+    <section id="workouts-section" class="features">
         <div class="container">
-            <h2>Why Choose QuickFitPro?</h2>
-            <div class="feature-grid">
-                <div class="card">
-                    <h3>⚡ Quick Workouts</h3>
-                    <p>Efficient routines that can be done anywhere, anytime—even from your workspace.</p>
-                </div>
-                <div class="card">
-                    <h3>🎯 Core Focused</h3>
-                    <p>Tailored plans focusing on your core fitness goals and long-term vitality.</p>
-                </div>
-                <div class="card">
-                    <h3>🔒 Private & Secure</h3>
-                    <p>No tracking or data collection. Built with your privacy in mind.</p>
-                </div>
+            <h2>Your Expanded Workout Library</h2>
+            <p style="margin-bottom: 30px; color: #666;">Select a routine to launch your live timer. Progress is saved locally.</p>
+            
+            <!-- Active Timer Panel -->
+            <div id="timer-panel" class="timer-box" style="display:none;">
+                <h3 id="active-title" style="color: #03A9F4; margin-bottom: 10px;">Active Session</h3>
+                <div id="countdown-display" style="font-size: 3rem; font-weight: bold; color: #333; margin-bottom: 15px;">00:00</div>
+                <button onclick="stopWorkout()" style="background-color: #e53935; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">End Workout</button>
+            </div>
+
+            <div id="workout-container" class="feature-grid">
+                <!-- Populated dynamically via JS -->
             </div>
         </div>
     </section>
-    <section id="cta" class="cta-section">
-        <div class="container">
-            <h2>Ready to Transform Your Routine?</h2>
-            <p>Join thousands of busy professionals achieving their fitness objectives daily.</p>
-            <a href="workouts.json" target="_blank" class="btn-secondary">View App Workout JSON API</a>
-        </div>
-    </section>
+
     <footer>
-        <p>&copy; 2026 QuickFitPro. Hosted for free via Vercel.</p>
+        <p>&copy; 2026 QuickFitPro. Ready for live Vercel deployment.</p>
     </footer>
+
+    <!-- Frontend Script with LocalStorage Persistence -->
+    <script>
+        let countdownInterval;
+        let activeWorkoutTitle = "";
+
+        // Load Streak from localStorage on startup
+        document.addEventListener("DOMContentLoaded", () => {
+            updateStreakDisplay();
+            loadWorkouts();
+        });
+
+        function getStreak() {
+            return parseInt(localStorage.getItem("quickfit_streak") || "0");
+        }
+
+        function incrementStreak() {
+            let current = getStreak();
+            localStorage.setItem("quickfit_streak", current + 1);
+            updateStreakDisplay();
+        }
+
+        function updateStreakDisplay() {
+            document.getElementById("streak-count").innerText = getStreak();
+        }
+
+        function loadWorkouts() {
+            fetch('workouts.json')
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('workout-container');
+                    container.innerHTML = '';
+                    data.workouts.forEach(w => {
+                        const card = document.createElement('div');
+                        card.className = 'card';
+                        card.innerHTML = `
+                            <div class="media-container">
+                                <img src="${w.visual_guide}" alt="${w.title}" style="width:100%; height:160px; object-fit: cover; border-radius: 6px; margin-bottom: 15px;">
+                            </div>
+                            <h3>⚡ ${w.title}</h3>
+                            <p><strong>Duration:</strong> ${w.duration_minutes} Minutes</p>
+                            <p><strong>Focus:</strong> ${w.focus} | <strong>Level:</strong> ${w.difficulty}</p>
+                            <p style="margin-top: 8px; font-size: 0.9rem; color: #555;"><strong>Exercises:</strong> ${w.exercises.join(', ')}</p>
+                            <button onclick="startWorkout('${w.title}', ${w.duration_minutes})" class="btn-primary" style="margin-top: 15px; width: 100%; text-align: center; cursor: pointer;">Start Live Session</button>
+                        `;
+                        container.appendChild(card);
+                    });
+                });
+        }
+
+        function startWorkout(title, minutes) {
+            clearInterval(countdownInterval);
+            activeWorkoutTitle = title;
+            const panel = document.getElementById('timer-panel');
+            const activeTitle = document.getElementById('active-title');
+            const display = document.getElementById('countdown-display');
+            
+            panel.style.display = 'block';
+            activeTitle.innerText = "🚀 Active: " + title;
+            window.location.hash = '#timer-panel';
+
+            let totalSeconds = minutes * 60;
+
+            countdownInterval = setInterval(() => {
+                if (totalSeconds <= 0) {
+                    clearInterval(countdownInterval);
+                    incrementStreak();
+                    alert('🎉 Workout Completed! Saved to your local streak history.');
+                    panel.style.display = 'none';
+                    return;
+                }
+                totalSeconds--;
+                let mins = Math.floor(totalSeconds / 60);
+                let secs = totalSeconds % 60;
+                display.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        function stopWorkout() {
+            clearInterval(countdownInterval);
+            document.getElementById('timer-panel').style.display = 'none';
+            alert('Workout session ended.');
+        }
+    </script>
 </body>
 </html>
